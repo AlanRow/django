@@ -7,6 +7,9 @@ class Places(models.Model):
     built_at = models.DateField(default=date.today)
     rooms = models.IntegerField()
     
+    def __str__(self):
+        return f'{self.address} ({self.rooms} комнат)'
+    
     
 # Практика 1
 #  Добавьте в класс Places поле built_at
