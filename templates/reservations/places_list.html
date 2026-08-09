@@ -1,0 +1,12 @@
+{% if places %}
+    <div>
+    {% for p in places %}
+        <div>
+            <h2>{{ p.address|capfirst }}</h2>
+            <p>Price: {{ p.price|floatformat:2 }}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>No places are available.</p>
+{% endif %}

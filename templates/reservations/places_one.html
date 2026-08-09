@@ -1,0 +1,6 @@
+<div>
+    <h2>{{ place.address|capfirst }}</h2>
+    <p>Price: {{ place.price|floatformat:2 }}</p>
+    <p>Build at: {{ place.built_at|date:"Y-m-d" }}</p>
+    <p>Rooms: {{ place.rooms }}</p>
+</div>
