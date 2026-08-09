@@ -12,18 +12,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='places',
+            model_name='Place',
             name='built_at',
             field=models.DateField(default=datetime.date.today),
         ),
         migrations.AddField(
-            model_name='places',
+            model_name='Place',
             name='rooms',
             field=models.IntegerField(default=1),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='places',
+            model_name='Place',
             name='price',
             field=models.FloatField(),
         ),

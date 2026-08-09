@@ -1,7 +1,7 @@
 from datetime import date
 from django.db import models
 
-class Places(models.Model):
+class Place(models.Model):
     address = models.CharField(max_length=255)
     price = models.FloatField()
     built_at = models.DateField(default=date.today)
@@ -12,7 +12,7 @@ class Places(models.Model):
     
     
 # Практика 1
-#  Добавьте в класс Places поле built_at
+#  Добавьте в класс Place поле built_at
 #  типа DateField с датой сдачи 
 #  в эксплуатацию здания / квартиры
 #  и поле rooms (IntegerField) с 
