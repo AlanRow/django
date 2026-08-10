@@ -9,5 +9,13 @@ def index(request):
     rendered = template.render({ "place": place }, request)
 
     return HttpResponse(rendered)
+
+
+def all_places(request):
+    template = loader.get_template("reservations/all_places.html")
+    places = Place.objects.all()
+    rendered = template.render({ "places": places }, request)
+
+    return HttpResponse(rendered)
     
 
