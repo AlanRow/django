@@ -6,6 +6,8 @@ class Place(models.Model):
     price = models.FloatField()
     built_at = models.DateField(default=date.today)
     rooms = models.IntegerField()
+    owner = models.CharField(max_length=50, null=True)
+    floor = models.IntegerField(default=1)
     
     def __str__(self):
         return f'{self.address} ({self.rooms} комнат)'

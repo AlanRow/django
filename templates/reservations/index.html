@@ -1,0 +1,14 @@
+<div>
+    {% if place %}
+        <h1>{{ place.address }}</h1>
+        <p>Price: {{ place.price|floatformat:2 }}</p>
+        <p>Rooms: {{ place.rooms }}</p>
+        <p>Built at: {{ place.built_at|date:"Y-m-d"  }}</p>
+        <p>Floor: {{ place.floor }}</p>
+        {% if place.owner %}
+            <p>Owner: {{ place.owner }}</p>
+        {% endif %}
+    {% else %}
+        <p>No places here...</p>
+    {% endif %}
+</div>
