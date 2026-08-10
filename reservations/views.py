@@ -17,5 +17,13 @@ def all_places(request):
     rendered = template.render({ "places": places }, request)
 
     return HttpResponse(rendered)
+
+
+def places_from_expensive(request):
+    template = loader.get_template("reservations/all_places.html")
+    places = Place.objects.all().order_by('-price')
+    rendered = template.render({ "places": places }, request)
+
+    return HttpResponse(rendered)
     
 
