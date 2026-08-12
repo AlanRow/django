@@ -10,6 +10,11 @@ def index(request):
 
     return HttpResponse(rendered)
 
+def test_search_param(request):
+    template = loader.get_template("reservations/test_search_param.html")
+    search_param = request.GET.get("test")
+    rendered = template.render({ "param": search_param })
+    return HttpResponse(rendered)
 
 def all_places(request):
     template = loader.get_template("reservations/all_places.html")
