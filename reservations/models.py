@@ -13,5 +13,17 @@ class Place(models.Model):
         return f'{self.address} ({self.rooms} комнат)'
     
 
+class Car(models.Model):
+    make = models.CharField(max_length=50)
+    velocity = models.FloatField()
+
+class Person(models.Model):
+    name = models.CharField(max_length=50)
+    weight = models.FloatField()
+    car = models.ForeignKey(
+        Car,
+        on_delete=models.CASCADE,
+        related_name="passengers"
+    )
     
 
