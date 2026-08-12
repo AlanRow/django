@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import loader
 
 from .models import Place
@@ -10,21 +10,14 @@ def index(request):
 
     return HttpResponse(rendered)
 
-def test_search_param(request):
-    template = loader.get_template("reservations/test_search_param.html")
-    search_param = request.GET.get("test")
-    rendered = template.render({ "param": search_param })
-    return HttpResponse(rendered)
-
-def test_filter_places(request):
-    template = loader.get_template("reservations/all_places.html")
-    rooms_2_places = Place.objects.filter(rooms=2) # Ровно 2 комнаты
-    price_more_4_or_eq = Place.objects.filter(price__gte=4000000) # больше или равно 4 млн
-    price_less_5 = Place.objects.filter(price__lt=5000000) # меньше или равно 5 млн
-    address_contains_test = Place.objects.filter(address__contains="place" ) # содержит слово place
-    price_more_4_and_room_2 = Place.objects.filter(price__gte=4000000, rooms=2) # оба условия
+def place_by_id(request, id):
+    try:
+        place = Place.objects.get(pk=id)
+    except Place.DoesNotExist:
+        raise Http404("Place doesnt exist")
         
-    rendered = template.render( { "places": price_more_4_or_eq }, request)
+    template = loader.get_template("reservations/index.html")
+    rendered = template.render({ "place": place }, request)
     return HttpResponse(rendered)
 
 def all_places(request):
@@ -45,6 +38,7 @@ def all_places(request):
 
     return HttpResponse(rendered)
 
+# Testing
 
 def places_from_expensive(request):
     template = loader.get_template("reservations/all_places.html")
@@ -53,4 +47,20 @@ def places_from_expensive(request):
 
     return HttpResponse(rendered)
     
+def test_search_param(request):
+    template = loader.get_template("reservations/test_search_param.html")
+    search_param = request.GET.get("test")
+    rendered = template.render({ "param": search_param })
+    return HttpResponse(rendered)
+
+def test_filter_places(request):
+    template = loader.get_template("reservations/all_places.html")
+    rooms_2_places = Place.objects.filter(rooms=2) # Ровно 2 комнаты
+    price_more_4_or_eq = Place.objects.filter(price__gte=4000000) # больше или равно 4 млн
+    price_less_5 = Place.objects.filter(price__lt=5000000) # меньше или равно 5 млн
+    address_contains_test = Place.objects.filter(address__contains="place" ) # содержит слово place
+    price_more_4_and_room_2 = Place.objects.filter(price__gte=4000000, rooms=2) # оба условия
+        
+    rendered = template.render( { "places": price_more_4_or_eq }, request)
+    return HttpResponse(rendered)
 
