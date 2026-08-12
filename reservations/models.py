@@ -12,15 +12,6 @@ class Place(models.Model):
     def __str__(self):
         return f'{self.address} ({self.rooms} комнат)'
     
-    
-# Практика 1
-#  Добавьте в класс Place поле built_at
-#  типа DateField с датой сдачи 
-#  в эксплуатацию здания / квартиры
-#  и поле rooms (IntegerField) с 
-#  количеством комнат
-#  Примените изменения к базе данных
-#  (makemigrations + migrate)
 
     
 
