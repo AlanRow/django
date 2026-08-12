@@ -21,14 +21,26 @@ def test_filter_places(request):
     rooms_2_places = Place.objects.filter(rooms=2) # Ровно 2 комнаты
     price_more_4_or_eq = Place.objects.filter(price__gte=4000000) # больше или равно 4 млн
     price_less_5 = Place.objects.filter(price__lt=5000000) # меньше или равно 5 млн
-    address_contains_test = Place.objects.filter(address__contains="place") # сожержит слово place
+    address_contains_test = Place.objects.filter(address__contains="place" ) # содержит слово place
+    price_more_4_and_room_2 = Place.objects.filter(price__gte=4000000, rooms=2) # оба условия
         
     rendered = template.render( { "places": price_more_4_or_eq }, request)
     return HttpResponse(rendered)
 
 def all_places(request):
+    min_floor = request.GET.get("min_floor")
+    max_floor = request.GET.get("max_floor")
+    
+    if min_floor is not None and max_floor is not None:
+        places = Place.objects.filter(floor__gte=min_floor, floor__lte=max_floor)
+    elif min_floor is not None:
+        places = Place.objects.filter(floor__gte=min_floor)
+    elif max_floor is not None:
+        places = Place.objects.filter(floor__lte=max_floor)
+    else:
+        places = Place.objects.all()
+    
     template = loader.get_template("reservations/all_places.html")
-    places = Place.objects.all()
     rendered = template.render({ "places": places }, request)
 
     return HttpResponse(rendered)
