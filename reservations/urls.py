@@ -8,5 +8,6 @@ urlpatterns = [
     path("places/<str:id>", views.place_by_id, name="place_py_id"),
     path("places_exp", views.places_from_expensive, name="places_expensive"),
     path("pars", views.test_search_param, name="test_search_param"),
-    path("filtering", views.test_filter_places, name="test_filtering")
+    path("filtering", views.test_filter_places, name="test_filtering"),
+    path("first_owner", views.get_first_owner_places, name="get_first_owner_places"),
 ]

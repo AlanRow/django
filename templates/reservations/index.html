@@ -6,7 +6,7 @@
         <p>Built at: {{ place.built_at|date:"Y-m-d"  }}</p>
         <p>Floor: {{ place.floor }}</p>
         {% if place.owner %}
-            <p>Owner: {{ place.owner }}</p>
+            <p>Owner: {{ place.owner.name }} ({{ place.owner.email }})</p>
         {% endif %}
     {% else %}
         <p>No places here...</p>

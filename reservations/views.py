@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.template import loader
 
-from .models import Place
+from .models import Place, Owner
 
 def index(request):
     template = loader.get_template("reservations/index.html")
@@ -39,6 +39,11 @@ def all_places(request):
     return HttpResponse(rendered)
 
 # Testing
+
+def get_first_owner_places(request):
+    owner = Owner.objects.get(pk=1)
+    places = owner.places.all()
+    return HttpResponse(len(list(places)))
 
 def places_from_expensive(request):
     template = loader.get_template("reservations/all_places.html")
