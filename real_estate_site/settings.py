@@ -114,7 +114,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Authentication & Users
-LOGIN_REDIRECT_URL = "/reservations/places"
+LOGIN_REDIRECT_URL = "/clients/account"
 LOGOUT_REDIRECT_URL = "/reservations"
 
 

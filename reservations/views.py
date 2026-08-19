@@ -1,6 +1,5 @@
 from django.http import HttpResponse, Http404
 from django.template import loader
-from django.contrib.auth.decorators import login_required
 
 from .models import Place, Owner
 
@@ -21,7 +20,6 @@ def place_by_id(request, id):
     rendered = template.render({ "place": place }, request)
     return HttpResponse(rendered)
 
-@login_required
 def all_places(request):
     min_floor = request.GET.get("min_floor")
     max_floor = request.GET.get("max_floor")

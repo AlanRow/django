@@ -25,5 +25,9 @@ urlpatterns = [
     path(
         'reservations/',
         include("reservations.urls"),
+    ),
+    path(
+        'clients/',
+        include("client_profile.urls"),
     )
 ]
