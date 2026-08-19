@@ -1,5 +1,6 @@
 from django.http import HttpResponse, Http404
 from django.template import loader
+from django.contrib.auth.decorators import login_required
 
 from .models import Place, Owner
 
@@ -20,6 +21,7 @@ def place_by_id(request, id):
     rendered = template.render({ "place": place }, request)
     return HttpResponse(rendered)
 
+@login_required
 def all_places(request):
     min_floor = request.GET.get("min_floor")
     max_floor = request.GET.get("max_floor")
@@ -36,6 +38,19 @@ def all_places(request):
     template = loader.get_template("reservations/all_places.html")
     rendered = template.render({ "places": places }, request)
 
+    return HttpResponse(rendered)
+
+def owner_by_id(request, id):
+    try:
+        owner = Owner.objects.get(pk=id)
+    except Owner.DoesNotExist:
+        raise Http404("Place doesnt exist")
+        
+    template = loader.get_template("reservations/one_owner.html")
+    
+    places = owner.places.all()
+    
+    rendered = template.render({ "owner": owner, "places": places }, request)
     return HttpResponse(rendered)
 
 # Testing

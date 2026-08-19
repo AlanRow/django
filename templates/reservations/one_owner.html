@@ -1,0 +1,11 @@
+<div>
+    <h1>{{ owner.name }}</h1>
+    <a href="mailto:{{owner.email}}">{{ owner.email }}</a>
+   {% if places %}
+    <ul>
+        {% for place_item in places %}
+            <li>{{ place_item.address }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
