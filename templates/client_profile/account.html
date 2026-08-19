@@ -1,6 +1,8 @@
 <div>
     {% if user.is_authenticated %}
     <p>Name: {{ user.username }}</p>
+    <p>Age: {{ user.age }}</p>
+    <p>Location: {{ user.location}}</p>
     <div>
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'reservations.apps.ReservationsConfig',
+    'client_profile.apps.ClientProfileConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -116,7 +117,7 @@ USE_TZ = True
 # Authentication & Users
 LOGIN_REDIRECT_URL = "/clients/account"
 LOGOUT_REDIRECT_URL = "/reservations"
-
+AUTH_USER_MODEL = "client_profile.ClientUser"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
