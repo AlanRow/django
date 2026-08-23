@@ -1,0 +1,28 @@
+<h1>Sign Up</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+        <p>
+            <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+            </label><br>
+
+            {{ field }}
+
+            {% for error in field.errors %}
+                <br><span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </p>
+    {% endfor %}
+
+    <button type="submit">Sign Up</button>
+</form>
+
+<p>
+    Already have account?
+    <a href="{% url 'login' %}">Log in</a>
+</p>

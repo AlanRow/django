@@ -115,8 +115,9 @@ USE_I18N = True
 USE_TZ = True
 
 # Authentication & Users
+LOGIN_URL = "/clients/login"
 LOGIN_REDIRECT_URL = "/clients/account"
-LOGOUT_REDIRECT_URL = "/reservations"
+LOGOUT_REDIRECT_URL = "/clients/login"
 AUTH_USER_MODEL = "client_profile.ClientUser"
 
 # Static files (CSS, JavaScript, Images)
