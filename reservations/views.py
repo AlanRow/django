@@ -1,7 +1,9 @@
 from django.http import HttpResponse, Http404
 from django.template import loader
+from django.shortcuts import redirect
 
 from .models import Place, Owner
+from .forms import PlaceForm
 
 def index(request):
     template = loader.get_template("reservations/index.html")
@@ -36,6 +38,20 @@ def all_places(request):
     template = loader.get_template("reservations/all_places.html")
     rendered = template.render({ "places": places }, request)
 
+    return HttpResponse(rendered)
+
+def create_place(request):
+    if request.method == "POST":
+        form = PlaceForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("all_places")
+    else:
+        form = PlaceForm()
+
+    template = loader.get_template("reservations/create_place.html")
+    rendered = template.render({"form": form}, request)
     return HttpResponse(rendered)
 
 def owner_by_id(request, id):
