@@ -3,6 +3,8 @@
     <p>Name: {{ user.username }}</p>
     <p>Age: {{ user.age }}</p>
     <p>Location: {{ user.location}}</p>
+    <p>Phone number: <a href="tel:{{ user.phone }}"{{ user.location}}</p>
+    <p>Balance: {{ user.balance|floatformat:2 }}Р</p>
     <div>
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
