@@ -1,7 +1,9 @@
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseBadRequest
 from django.template import loader
+from django.shortcuts import redirect
 
 from .models import Place, Owner
+from .forms import CreateOwnerForm
 
 def index(request):
     template = loader.get_template("reservations/index.html")
@@ -38,6 +40,14 @@ def all_places(request):
 
     return HttpResponse(rendered)
 
+
+def all_owners(request):
+    owners = Owner.objects.all()
+    template = loader.get_template("reservations/all_owners.html")
+    rendered = template.render({ "owners": owners }, request)
+
+    return HttpResponse(rendered)
+
 def owner_by_id(request, id):
     try:
         owner = Owner.objects.get(pk=id)
@@ -51,6 +61,25 @@ def owner_by_id(request, id):
     rendered = template.render({ "owner": owner, "places": places }, request)
     return HttpResponse(rendered)
 
+
+def create_owner(request):
+    if request.method == "GET":
+        form = CreateOwnerForm()
+        template = loader.get_template("reservations/create_owner.html")
+        rendered = template.render({ "form": form }, request)
+        return HttpResponse(rendered)
+    elif request.method == "POST":
+        form_data = CreateOwnerForm(request.POST)
+
+        if form_data.is_valid():
+            form_data.save()
+            return redirect("all_owners")
+        
+        template = loader.get_template("reservations/create_owner.html")
+        rendered = template.render({ "form": form_data }, request)
+        return HttpResponse(rendered)
+    else:
+        return HttpResponseBadRequest("Invalid HTTP method")
 # Testing
 
 def get_first_owner_places(request):
