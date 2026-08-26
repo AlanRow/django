@@ -1,6 +1,6 @@
 from django.forms import ModelForm, ValidationError
 
-from .models import Owner
+from .models import Owner, Place
 
 
 class CreateOwnerForm(ModelForm):
@@ -15,3 +15,24 @@ class CreateOwnerForm(ModelForm):
             raise ValidationError("Name is too short (must have at least 3 chars)")
         
         return name
+    
+    
+class CreatePlaceForm(ModelForm):
+    class Meta:
+        model = Place
+        fields = (
+            "address",
+            "price",
+            "built_at",
+            "rooms",
+            "owner"
+        )
+        
+    def clean_price(self):
+        price = self.cleaned_data["price"]
+        
+        if price <= 0:
+            raise ValidationError("Price must be positive")
+        
+        return price
+    

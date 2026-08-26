@@ -3,7 +3,7 @@ from django.template import loader
 from django.shortcuts import redirect
 
 from .models import Place, Owner
-from .forms import CreateOwnerForm
+from .forms import CreateOwnerForm, CreatePlaceForm
 
 def index(request):
     template = loader.get_template("reservations/index.html")
@@ -63,23 +63,37 @@ def owner_by_id(request, id):
 
 
 def create_owner(request):
-    if request.method == "GET":
-        form = CreateOwnerForm()
-        template = loader.get_template("reservations/create_owner.html")
-        rendered = template.render({ "form": form }, request)
-        return HttpResponse(rendered)
-    elif request.method == "POST":
-        form_data = CreateOwnerForm(request.POST)
+    if request.method == "POST":
+        form = CreateOwnerForm(request.POST)
 
-        if form_data.is_valid():
-            form_data.save()
+        if form.is_valid():
+            form.save()
             return redirect("all_owners")
-        
-        template = loader.get_template("reservations/create_owner.html")
-        rendered = template.render({ "form": form_data }, request)
-        return HttpResponse(rendered)
+    elif request.method == "GET":
+        form = CreateOwnerForm()
     else:
         return HttpResponseBadRequest("Invalid HTTP method")
+    
+    template = loader.get_template("reservations/create_owner.html")
+    rendered = template.render({ "form": form }, request)
+    return HttpResponse(rendered)
+
+
+def create_place(request):
+    if request.method == "POST":
+        form = CreatePlaceForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("all_places")
+    elif request.method == "GET":
+        form = CreatePlaceForm()
+    else:
+        return HttpResponseBadRequest("Invalid HTTP method")
+    
+    template = loader.get_template("reservations/create_place.html")
+    rendered = template.render({ "form": form }, request)
+    return HttpResponse(rendered)
 # Testing
 
 def get_first_owner_places(request):
