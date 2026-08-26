@@ -79,6 +79,23 @@ def create_owner(request):
     return HttpResponse(rendered)
 
 
+# Практика: дописать функцию edit_owner
+# чтобы она работала следующим образом:
+# для GET: отдает форму (шаблон) с заполненными полями Owner'а
+#   и кнопкой реакдтировать, отправляющей POST-запрос
+#   (на эту же страницу)
+# для POST: обновляет данные owner по его id 
+#    и сохраняет в базу
+
+def edit_owner(request, id):
+    # ...
+    # При редактировании в POST, где owner = объект модели из базы
+    # form = CreateOwnerForm(request.POST, instance=owner)
+    # if form.is_valid:
+    #     form.save()
+    # ...
+
+
 def create_place(request):
     if request.method == "POST":
         form = CreatePlaceForm(request.POST)
