@@ -4,5 +4,17 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import ClientUser
 
 
-# class RegisterClientForm(UserCreationForm):
-#     email 
+# Практика: реализовать форму регистрации нового пользователя
+# с возможностью задать поля location, phone, age
+
+class RegisterClientForm(UserCreationForm):
+    
+    class Meta:
+        model = ClientUser
+        fields = (
+            "username",
+            "password1",
+            "password2",
+        )
+        
+        

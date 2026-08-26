@@ -7,3 +7,7 @@ def account(request):
     rendered = template.render({ }, request)
 
     return HttpResponse(rendered)
+
+
+def register(request):
+    pass
