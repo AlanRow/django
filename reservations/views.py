@@ -3,7 +3,8 @@ from django.template import loader
 from django.shortcuts import redirect
 
 from .models import Place, Owner
-from .forms import CreateOwnerForm, CreatePlaceForm
+from .forms import CreateOwnerForm, CreatePlaceForm, EditOwnerForm
+from .utils import get_owner_by_id
 
 def index(request):
     template = loader.get_template("reservations/index.html")
@@ -49,11 +50,7 @@ def all_owners(request):
     return HttpResponse(rendered)
 
 def owner_by_id(request, id):
-    try:
-        owner = Owner.objects.get(pk=id)
-    except Owner.DoesNotExist:
-        raise Http404("Place doesnt exist")
-        
+    owner = get_owner_by_id(id)
     template = loader.get_template("reservations/one_owner.html")
     
     places = owner.places.all()
@@ -79,21 +76,22 @@ def create_owner(request):
     return HttpResponse(rendered)
 
 
-# Практика: дописать функцию edit_owner
-# чтобы она работала следующим образом:
-# для GET: отдает форму (шаблон) с заполненными полями Owner'а
-#   и кнопкой реакдтировать, отправляющей POST-запрос
-#   (на эту же страницу)
-# для POST: обновляет данные owner по его id 
-#    и сохраняет в базу
-
 def edit_owner(request, id):
-    # ...
-    # При редактировании в POST, где owner = объект модели из базы
-    # form = CreateOwnerForm(request.POST, instance=owner)
-    # if form.is_valid:
-    #     form.save()
-    # ...
+    owner = get_owner_by_id(id)
+    
+    if request.method == "POST":
+        form = EditOwnerForm(request.POST, instance=owner)
+        if form.is_valid():
+            form.save()
+            return redirect("all_owners")
+    elif request.method == "GET":
+        form = EditOwnerForm(instance=owner)
+    else:
+        return HttpResponseBadRequest("Invalid HTTP method")
+    
+    template = loader.get_template("reservations/edit_owner.html")
+    rendered = template.render({ "form": form }, request)
+    return HttpResponse(rendered)
 
 
 def create_place(request):

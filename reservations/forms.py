@@ -15,7 +15,10 @@ class CreateOwnerForm(ModelForm):
             raise ValidationError("Name is too short (must have at least 3 chars)")
         
         return name
-    
+
+
+class EditOwnerForm(CreateOwnerForm):
+    pass
     
 class CreatePlaceForm(ModelForm):
     class Meta:
