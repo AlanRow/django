@@ -126,3 +126,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+# Точка назаначения для прод сборки (на Linux-сервере)
+# STATIC_ROOT = '/var/www/realestatement.com/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
