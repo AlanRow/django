@@ -6,6 +6,11 @@ from .models import Place, Owner
 from .forms import CreateOwnerForm, CreatePlaceForm, EditOwnerForm
 from .utils import get_owner_by_id
 
+def main_view(request):
+    template = loader.get_template("reservations/main.html")
+    rendered = template.render({ }, request)
+    return HttpResponse(rendered)
+
 def index(request):
     template = loader.get_template("reservations/index.html")
     place = Place.objects.first()
