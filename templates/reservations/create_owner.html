@@ -1,5 +1,11 @@
 <h1>Enter new owner data</h1>
 
+<!--
+    Практика: добавить поле avatar
+    и выводить на странице one_owber крупно
+    а в списке all_owners
+    рядом с именем в виде кружочка
+  -->
 <form method="post">
     {% csrf_token %}
     {{ form.as_p  }}
