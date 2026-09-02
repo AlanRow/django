@@ -101,7 +101,7 @@ def edit_owner(request, id):
 
 def create_place(request):
     if request.method == "POST":
-        form = CreatePlaceForm(request.POST)
+        form = CreatePlaceForm(request.POST, request.FILES)
 
         if form.is_valid():
             form.save()

@@ -1,6 +1,9 @@
 <div>
     {% if place %}
         <h1>{{ place.address }}</h1>
+        {% if place.image %}
+            <img src="{{ place.image.url }}" alt="{{ place.address }}">
+        {% endif %}
         <p>Price: {{ place.price|floatformat:2 }}</p>
         <p>Rooms: {{ place.rooms }}</p>
         <p>Built at: {{ place.built_at|date:"Y-m-d"  }}</p>

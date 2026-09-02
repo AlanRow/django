@@ -28,7 +28,8 @@ class CreatePlaceForm(ModelForm):
             "price",
             "built_at",
             "rooms",
-            "owner"
+            "owner",
+            "image",
         )
         
     def clean_price(self):
@@ -38,4 +39,3 @@ class CreatePlaceForm(ModelForm):
             raise ValidationError("Price must be positive")
         
         return price
-    

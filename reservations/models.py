@@ -13,6 +13,7 @@ class Place(models.Model):
         null=True,
     )
     floor = models.IntegerField(default=1)
+    image = models.ImageField(upload_to="places/", null=True, blank=True)
     
     def __str__(self):
         return f'{self.address} ({self.rooms} комнат)'
