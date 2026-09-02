@@ -28,7 +28,8 @@ class CreatePlaceForm(ModelForm):
             "price",
             "built_at",
             "rooms",
-            "owner"
+            "owner",
+            "photo",
         )
         
     def clean_price(self):
