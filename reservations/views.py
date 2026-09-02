@@ -2,8 +2,8 @@ from django.http import HttpResponse, Http404, HttpResponseBadRequest
 from django.template import loader
 from django.shortcuts import redirect
 
-from .models import Place, Owner
-from .forms import CreateOwnerForm, CreatePlaceForm, EditOwnerForm
+from .models import Place, Owner, OwnerDocument
+from .forms import CreateOwnerForm, CreatePlaceForm, EditOwnerForm, UploadDocumentsForm
 from .utils import get_owner_by_id
 
 def main_view(request):
@@ -64,9 +64,34 @@ def owner_by_id(request, id):
     return HttpResponse(rendered)
 
 
+def upload_documents(request):
+    if request.method == "POST":
+        form = UploadDocumentsForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            owner = Owner.objects.create(name="No name", email="no_email")
+
+            documents = request.FILES.getlist('documents')
+            for doc in documents:
+                OwnerDocument.objects.create(
+                    owner=owner,
+                    file=doc
+                )
+            
+            return redirect("all_owners")
+    elif request.method == "GET":
+        form = UploadDocumentsForm()
+    else:
+        return HttpResponseBadRequest("Invalid HTTP method")
+    
+    template = loader.get_template("reservations/upload_documents.html")
+    rendered = template.render({ "form": form }, request)
+    return HttpResponse(rendered)
+
+
 def create_owner(request):
     if request.method == "POST":
-        form = CreateOwnerForm(request.POST)
+        form = CreateOwnerForm(request.POST, request.FILES)
 
         if form.is_valid():
             form.save()

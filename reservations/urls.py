@@ -10,6 +10,7 @@ urlpatterns = [
     path("places/<str:id>", views.place_by_id, name="place_py_id"),
     path("owners/edit/<str:id>", views.edit_owner, name="create_owner"),
     path("owners/create", views.create_owner, name="edit_owner"),
+    path("owners/upload", views.upload_documents, name="owner_upload"),
     path("owners/<str:id>", views.owner_by_id, name="owner_py_id"),
     path("places_exp", views.places_from_expensive, name="places_expensive"),
     path("pars", views.test_search_param, name="test_search_param"),

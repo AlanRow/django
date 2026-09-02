@@ -21,13 +21,25 @@ class Place(models.Model):
     
     def __str__(self):
         return f'{self.address} ({self.rooms} комнат)'
-    
+
+
 class Owner(models.Model):
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=40)
     
     def __str__(self):
         return self.name
+
+
+class OwnerDocument(models.Model):
+    uploaded_at = models.DateTimeField(null=True)
+    file = models.FileField(upload_to="documents/")
+    owner = models.ForeignKey(
+        Owner,
+        on_delete=models.CASCADE,
+        related_name="documents"
+    )
+    
 
 # class Car(models.Model):
 #     make = models.CharField(max_length=50)

@@ -1,7 +1,12 @@
-from django.forms import ModelForm, ValidationError
+from django.forms import Form, ModelForm,ValidationError, FileField, ClearableFileInput
 
 from .models import Owner, Place
 
+class UploadDocumentsForm(Form):
+    documents = FileField(
+        widget=ClearableFileInput,
+        required=False
+    )
 
 class CreateOwnerForm(ModelForm):
     class Meta:
